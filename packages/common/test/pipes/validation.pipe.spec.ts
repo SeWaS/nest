@@ -26,6 +26,10 @@ class TestModel {
   @IsString() public prop1: string;
 
   @IsString() public prop2: string;
+
+  @IsOptional()
+  @IsString()
+  public optionalProp: string;
 }
 
 describe('ValidationPipe', () => {
@@ -47,7 +51,7 @@ describe('ValidationPipe', () => {
         target = new ValidationPipe();
       });
       it('should return the value unchanged', async () => {
-        const testObj = { prop1: 'value1', prop2: 'value2' };
+        const testObj = { prop1: 'value1', prop2: 'value2', optionalProp: null };
         expect(await target.transform(testObj, {} as any)).to.equal(testObj);
         expect(
           await target.transform(testObj, metadata as any),
